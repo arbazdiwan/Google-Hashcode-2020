@@ -2,8 +2,6 @@ import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
 
-import com.google.common.collect.Collections2;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -24,7 +22,7 @@ public class BookScanning{
 	TreeMap<Integer, String> bl;
 	List<String> booksScanned;
 
-	int B, L, D;
+	int B, L, D;  /* here B = total number of books, L = total number of libraries, D = available days */
 	int tBooks, tDays, tBooksPerDay;
 
 	void getData(String filepath) throws FileNotFoundException{
@@ -50,7 +48,7 @@ public class BookScanning{
 			D = Integer.parseInt(params[2]);
 
 			line++;
-			params =fileData[line].split(" ");
+			params = fileData[line].split(" ");
 			bookScoreList = new ArrayList<Integer>();
 			for(String s : params){
 				bookScoreList.add(Integer.parseInt(s));
@@ -93,25 +91,22 @@ public class BookScanning{
 		}
 	}
 
-	void GenerateOutput(){
-		
+	void GenerateOutput(){		
 		//System.out.println("libraries = " + libraries.toString());
 		
 		TreeMap<Integer, Library> result = new TreeMap<Integer, Library>(Collections.reverseOrder());
-		booksScanned =  new ArrayList<String>();
-		
+		booksScanned =  new ArrayList<String>();		
 		int day = 0;
 		
 		for(Map.Entry<Integer, Library> entry : libraries.entrySet() ) {
 			if(day > D)
-				break;
-			
+				break;			
 			Library lib = (Library) entry.getValue();		
 			day += lib.getDaysRequiredForSignup();
-			int days_required = lib.getMaxBooksPerDay() * (D - day);
 			
-			result.put(entry.getKey(), lib);		
+			//int days_required = lib.getMaxBooksPerDay() * (D - day);
 			
+			result.put(entry.getKey(), lib);			
 		}
 		
 		System.out.println(result.size());
@@ -137,8 +132,7 @@ public class BookScanning{
 				booksScanned.add(en.getValue());				
 				
 				i++;
-			}
-			
+			}			
 			System.out.println(lib.getLibrryId() + " " + booksToBeScanned.size());
 			
 			for(i=0, s = booksToBeScanned.size(); i < s; i++) {
@@ -148,11 +142,8 @@ public class BookScanning{
 					System.out.print(booksToBeScanned.get(i) + " ");
 			}
 			//System.out.println("day = " + day);
-		}
-		
-		
+		}		
 	}
-
 
 	// driver program
 	public static void main(String[] args){
@@ -170,10 +161,7 @@ public class BookScanning{
 			System.out.println("EXCEPTION IN MAIN");
 			e.printStackTrace();
 		}
-
 	}
-
-
 }
 
 class Library{
@@ -229,7 +217,5 @@ class Library{
 	}
 	public void setBookList(TreeMap<Integer, String> bookList) {
 		this.bookList = bookList;
-	}
-	
-	
+	}	
 }
