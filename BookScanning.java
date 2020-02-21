@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 public class BookScanning{
-
+	
 	List<Integer> bookScoreList;
 	TreeMap<Integer, Library> libraries;
 	TreeMap<Integer, String> bl;
@@ -26,12 +26,9 @@ public class BookScanning{
 	int tBooks, tDays, tBooksPerDay;
 
 	void getData(String filepath) throws FileNotFoundException{
-		libraries = new TreeMap<Integer, Library>(Collections.reverseOrder());
-		
+		libraries = new TreeMap<Integer, Library>(Collections.reverseOrder());		
 		File file = new File(filepath);
 		//BufferedReader br = new BufferedReader(new FileReader(file));
-		
-
 		try {
 			FileInputStream fisTargetFile = new FileInputStream(new File(filepath));
 
@@ -77,23 +74,21 @@ public class BookScanning{
 
 				libid++;
 				i++;
-			}
-
-			
+			}			
 		} catch (Exception e) {
 			System.out.println("EXCEPTION : " + e.getMessage());
 			e.printStackTrace();
 		}
 		try {
 			
-		} finally {
+		} 
+		finally {
 			//sc.close();
 		}
 	}
 
 	void GenerateOutput(){		
-		//System.out.println("libraries = " + libraries.toString());
-		
+		//System.out.println("libraries = " + libraries.toString());		
 		TreeMap<Integer, Library> result = new TreeMap<Integer, Library>(Collections.reverseOrder());
 		booksScanned =  new ArrayList<String>();		
 		int day = 0;
@@ -103,7 +98,7 @@ public class BookScanning{
 				break;			
 			Library lib = (Library) entry.getValue();		
 			day += lib.getDaysRequiredForSignup();
-			
+
 			//int days_required = lib.getMaxBooksPerDay() * (D - day);
 			
 			result.put(entry.getKey(), lib);			
@@ -122,15 +117,13 @@ public class BookScanning{
 			int days_required = lib.getMaxBooksPerDay() * (D - day);
 			TreeMap<Integer, String> books = lib.getBookList();
 			
-			int s =  books.size();
-			
+			int s =  books.size();			
 			int i=0;
 			for(Map.Entry<Integer, String> en : books.entrySet()) {
 				//if(booksScanned.contains(en.getValue()))
 					//continue;
 				booksToBeScanned.add(en.getValue());
 				booksScanned.add(en.getValue());				
-				
 				i++;
 			}			
 			System.out.println(lib.getLibrryId() + " " + booksToBeScanned.size());
@@ -153,9 +146,7 @@ public class BookScanning{
 		BookScanning bs = new BookScanning();
 		
 		try {
-
 			bs.getData( filepath + File.separator + filename);
-
 			bs.GenerateOutput();	
 		} catch (Exception e) {
 			System.out.println("EXCEPTION IN MAIN");
