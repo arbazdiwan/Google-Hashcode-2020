@@ -140,11 +140,10 @@ public class BookScanning{
 
 	// driver program
 	public static void main(String[] args){
-		String filepath = "E://P~L~A~C~E~M~E~N~T//hashcode//testecases";
+		String filepath = "E://hashcode//testecases";
 		String filename = "b_read_on.txt";
 		
-		BookScanning bs = new BookScanning();
-		
+		BookScanning bs = new BookScanning();		
 		try {
 			bs.getData( filepath + File.separator + filename);
 			bs.GenerateOutput();	
